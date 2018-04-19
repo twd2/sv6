@@ -159,7 +159,14 @@ trap_c(struct trapframe *tf)
   // XXX mt_ascope ascope("trap:%d", tf->trapno);
 #endif
 
+  // setup kernel fs
+  extern char fs_base[];
+  writefs(KDSEG);
+  writemsr(MSR_FS_BASE, (uint64_t)&fs_base);
   trap(tf);
+  // restore user fs
+  writefs(UDSEG);
+  writemsr(MSR_FS_BASE, myproc()->user_fs_);
 
 #if MTRACE
   mtstop(myproc());

@@ -289,7 +289,7 @@ __cxa_get_globals_fast(void)
   return myproc()->__cxa_eh_global;
 }
 
-static char fs_base[0x200]; // for %fs:0x28 in __gxx_personality_v0, ...
+char fs_base[0x200]; // for %fs:0x28 in __gxx_personality_v0, ...
 
 extern "C" void __register_frame(u8*);
 void
