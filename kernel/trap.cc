@@ -43,9 +43,18 @@ sysentry_c(u64 a0, u64 a1, u64 a2, u64 a3, u64 a4, u64 a5, u64 num)
     exit(-1);
   }
 
+  // setup kernel fs
+  extern char fs_base[];
+  writefs(KDSEG);
+  writemsr(MSR_FS_BASE, (uint64_t)&fs_base);
+
   trapframe *tf = (trapframe*) (myproc()->kstack + KSTACKSIZE - sizeof(*tf));
   myproc()->tf = tf;
   u64 r = syscall(a0, a1, a2, a3, a4, a5, num);
+
+  // restore user fs
+  writefs(UDSEG);
+  writemsr(MSR_FS_BASE, myproc()->user_fs_);
 
   if(myproc()->killed) {
     mtstart(trap, myproc());
