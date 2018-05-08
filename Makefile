@@ -65,6 +65,7 @@ endif
 LD = $(TOOLPREFIX)ld
 NM = $(TOOLPREFIX)nm
 OBJCOPY = $(TOOLPREFIX)objcopy
+OBJDUMP = $(TOOLPREFIX)objdump
 STRIP = $(TOOLPREFIX)strip
 
 ifeq ($(PLATFORM),xv6)

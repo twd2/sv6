@@ -322,9 +322,13 @@ invlpg(void *a)
 static inline int
 popcnt64(uint64_t v)
 {
-  uint64_t val;
-  __asm volatile("popcntq %1,%0" : "=r" (val) : "r" (v));
-  return val;
+  v = (v & 0x5555555555555555) + ((v >>1 ) & 0x5555555555555555);
+  v = (v & 0x3333333333333333) + ((v >>2 ) & 0x3333333333333333);
+  v = (v & 0x0f0f0f0f0f0f0f0f) + ((v >>4 ) & 0x0f0f0f0f0f0f0f0f);
+  v = (v & 0x00ff00ff00ff00ff) + ((v >>8 ) & 0x00ff00ff00ff00ff);
+  v = (v & 0x0000ffff0000ffff) + ((v >>16) & 0x0000ffff0000ffff);
+  v = (v & 0x00000000ffffffff) + ((v >>32) & 0x00000000ffffffff);
+  return v;
 }
 
 // Atomically set bit nr of *a.  nr must be <= 64.

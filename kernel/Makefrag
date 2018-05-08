@@ -99,6 +99,11 @@ $(KERN): $(O)/kernel/boot.o $(OBJS) $(LDEPS) kernel/kernel.ld
 	$(Q)mkdir -p $(@D)
 	$(Q)$(LD) $(LDFLAGS) -T kernel/kernel.ld -z max-page-size=4096 -e start \
 		-o $@ $(O)/kernel/boot.o $(OBJS) -L$(O) $(LFLAGS)
+	@echo "  PATCH  $@"
+	$(Q)./patch.py $(O)
+	$(Q)$(OBJDUMP) -d $@.bak > $@.bak.txt
+	$(Q)$(OBJDUMP) -d $@ > $@.txt
+	-$(Q)diff $@.bak.txt $@.txt > $(O)/diff.patch
 	$(Q)tools/check-stack $@
 
 $(O)/kernel/%.o: lib/%.cc $(O)/sysroot
