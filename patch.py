@@ -8,7 +8,7 @@ with open('{}/kernel.elf'.format(sys.argv[1]), 'rb') as f:
 with open('{}/kernel.elf.bak'.format(sys.argv[1]), 'wb') as f:
   f.write(data)
 
-# remove usages of %fs
+# remove the usage of %fs
                     # mov %fs:0x28, %rax; mov %rax, ??(%rsp)
 data = data.replace(b'\x64\x48\x8b\x04\x25\x28\x00\x00\x00\x48\x89',
                     # nop; mov %rax, ??(%rsp)
