@@ -28,7 +28,7 @@
 #define RADIX_DEBUG   DEBUG
 #define SEQLOCK_DEBUG DEBUG
 #define KSTACK_DEBUG  DEBUG // use guard pages for over/underflow protection
-#define SYSCALL_DEBUG 1
+#define SYSCALL_DEBUG 0
 #define TRAP_DEBUG    0
 #define TLB_INVL_DEBUG 0
 #define USTACKPAGES   8
