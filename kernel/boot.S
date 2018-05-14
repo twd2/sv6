@@ -92,7 +92,7 @@ boot_trap:
 .section .data.stack
 # Initial stack
 stack:
-.space KSTACKSIZE * 8 # FIXME: NCPU
+.space KSTACKSIZE * NCPU
 
 .data
 .balign PGSIZE
