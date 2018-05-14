@@ -489,6 +489,7 @@ popcli(void)
 void
 getcallerpcs(void *v, uptr pcs[], int n)
 {
+  return; // FIXME
   uintptr_t fp;
   int i;
 

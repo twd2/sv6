@@ -5,6 +5,7 @@
 #include <stdexcept>
 
 #include "ilist.hh"
+#include "kernel.hh"
 
 #ifndef BUDDY_DEBUG
 #define BUDDY_DEBUG 1

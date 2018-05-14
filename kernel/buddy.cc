@@ -2,6 +2,7 @@
 #if BUDDY_DEBUG
 #include "kstream.hh"
 #endif
+#include "kernel.hh"
 
 #include <cassert>
 #include <cstring>
