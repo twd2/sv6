@@ -1428,7 +1428,7 @@ sigtest(void)
     *sigptr = 1;
   }
 
-  sigptr = (volatile int*) 0xdeadbeef000;
+  sigptr = (volatile int*) 0xbeef0000;
   if (signal(SIGSEGV, sighand1) == SIG_ERR)
     die("failed to set SIGSEGV handler 1");
 
