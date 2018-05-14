@@ -18,7 +18,7 @@
 .globl start
 start:
   addi a0, a0, -HARTID_START # FIXME: for hifive unleashed
-  li t0, NCPU
+  li t0, ENABLE_CPU
   bgeu a0, t0, __die
 
   la t0, boot_trap

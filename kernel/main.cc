@@ -112,9 +112,7 @@ cmain(u64 hartid, void *fdt)
   initphysmem(fdt);
   initpg();                // Requires initphysmem
   inithz(fdt);        // CPU Hz, microdelay
-  ncpu -= HARTID_START; // FIXME: for hifive unleashed
   inittls(&cpus[0]);
-  //ncpu = 1;
   initnuma();
   initpercpu();            // Requires initnuma
   initcpus();              // Requires initpercpu

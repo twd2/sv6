@@ -1,5 +1,6 @@
 #pragma once
 #define HARTID_START 1 // FIXME: for hifive unleashed
+#define ENABLE_CPU   8 // should be less than or equal to NCPU
 #define NPROC        64  // maximum number of processes
 #define KSTACKSHIFT 15
 #define KSTACKSIZE (1UL << KSTACKSHIFT) // size of per-process kernel stack

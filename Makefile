@@ -10,7 +10,7 @@ QEMU       ?= qemu-system-riscv64
 # Number of CPUs to emulate
 QEMUSMP    ?= 5
 # RAM to simulate (in MB)
-QEMUMEM    ?= 4096
+QEMUMEM    ?= 512
 # Default hardware build target.  See param.h for others.
 HW         ?= qemu
 # Enable C++ exception handling in the kernel.
