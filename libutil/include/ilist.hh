@@ -521,8 +521,10 @@ struct ilist
     // important to do this on o.head *before* we copy it to head: if
     // the other list is empty, o.head will point to itself so our
     // update will update o.head.
-    (o.head.next->*L).prev = (o.head.prev->*L).next =
-      container_from_member(&head, L);
+
+    // Save old references.
+    auto &prev = (o.head.next->*L).prev, &next = (o.head.prev->*L).next;
+    prev = next = container_from_member(&head, L);
     head = o.head;
     // Reset other list
     o.clear();

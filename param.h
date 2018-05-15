@@ -1,4 +1,6 @@
 #pragma once
+#define HARTID_START 1 // FIXME: for hifive unleashed
+#define ENABLE_CPU   NCPU // should be less than or equal to NCPU
 #define NPROC        64  // maximum number of processes
 #define KSTACKSHIFT 15
 #define KSTACKSIZE (1UL << KSTACKSHIFT) // size of per-process kernel stack
@@ -21,12 +23,15 @@
 #define SPINLOCK_DEBUG DEBUG // Debug spin locks
 #define RCU_TYPE_DEBUG DEBUG
 #define LOCKSTAT      DEBUG
-#define ALLOC_MEMSET  DEBUG
+#define ALLOC_MEMSET  0 //DEBUG
 #define BUDDY_DEBUG   DEBUG
 #define REFCACHE_DEBUG DEBUG
 #define RADIX_DEBUG   DEBUG
 #define SEQLOCK_DEBUG DEBUG
 #define KSTACK_DEBUG  DEBUG // use guard pages for over/underflow protection
+#define SYSCALL_DEBUG 0
+#define TRAP_DEBUG    0
+#define TLB_INVL_DEBUG 0
 #define USTACKPAGES   8
 #define GCINTERVAL    10000 // max. time between GC runs (in msec)
 #define GC_GLOBAL     true
@@ -67,7 +72,7 @@
 //
 #if defined(HW_qemu)
 #define DEBUG         1
-#define NCPU          8   // maximum number of CPUs
+#define NCPU          64   // maximum number of CPUs
 #define NSOCKET       2
 #define PERFSIZE      (16<<20ull)
 #define MEMIDE        1 //0

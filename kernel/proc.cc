@@ -574,17 +574,13 @@ proc::deliver_signal(int signo)
     return false;
 
   trapframe tf_save = *tf;
-  tf->gpr.sp -= 128;   // skip redzone
   tf->gpr.sp -= sizeof(tf_save);
   if (putmem((void*) tf->gpr.sp, &tf_save, sizeof(tf_save)) < 0)
     return false;
 
-  tf->gpr.sp -= 8;
-  if (putmem((void*) tf->gpr.sp, &sig[signo].sa_restorer, 8) < 0)
-    return false;
-
   tf->epc = (u64) sig[signo].sa_handler;
   tf->gpr.a0 = signo;
+  tf->gpr.ra = (uintptr_t)sig[signo].sa_restorer;
   return true;
 }
 

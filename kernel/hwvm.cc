@@ -182,9 +182,9 @@ public:
             throw_bad_alloc();
           memset(next, 0, sizeof *next);
           uintptr_t pte = MK_PTE(v2p(next), create);
-          if (reached != level + 1) {
+          /*if (reached != level + 1)*/ {
             // is not the last level
-            pte &= ~(PTE_R | PTE_W | PTE_X);
+            pte &= ~(PTE_R | PTE_W | PTE_X | PTE_A | PTE_D | PTE_U);
           }
           if (!atomic_compare_exchange_weak(
                 entryp, &entry, pte)) {
@@ -469,7 +469,7 @@ batched_shootdown::perform() const
 
   for (int i = 0; i < ncpu; i++) {
     if (cpus[i].tlb_ptbr == ptbr && cpus[i].tlbflush_done < myreq) {
-      const unsigned long mask = 1UL << i;
+      const unsigned long mask = 1UL << (i + HARTID_START);
       sbi_remote_sfence_vma(&mask, 0, 0);
       kstats::inc(&kstats::tlb_shootdown_targets);
     }
@@ -609,6 +609,7 @@ namespace mmu_per_core_page_table {
     auto mypml4 = *pml4;
     assert(mypml4);
     mypml4->find(va).create(PTE_U)->store(pte, memory_order_relaxed);
+    tlb_invl(va);
     t->tracker_cores.set(myid());
   }
 
@@ -668,13 +669,16 @@ namespace mmu_per_core_page_table {
     // tracker), but it would probably require more communication.
     if (targets.none())
       return;
-    cprintf("start=%p, end=%p\n", start, end);
-    assert(start < end && end <= USERTOP);
+    if (!(start < end && end <= USERTOP))
+    {
+      cprintf("start=%p, end=%p\n", start, end);
+      assert(start < end && end <= USERTOP);
+    }
     kstats::inc(&kstats::tlb_shootdown_count);
     kstats::inc(&kstats::tlb_shootdown_targets, targets.count());
     kstats::timer timer(&kstats::tlb_shootdown_cycles);
     run_on_cpus(targets, [this]() {
         cache->clear(start, end);
-      });
+    });
   }
 }

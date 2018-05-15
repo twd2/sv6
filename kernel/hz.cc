@@ -69,7 +69,7 @@ static void hart_done(const struct fdt_scan_node *node, void *extra)
   struct hart_scan *scan = (struct hart_scan *)extra;
 
   if (scan->controller == node && scan->cpu) {
-    if (scan->hart < NPROC) {
+    if (scan->hart < ENABLE_CPU + HARTID_START) {
       ++ncpu;
     }
   }
@@ -98,4 +98,5 @@ void query_harts(uintptr_t fdt)
 
   ncpu = 0;
   fdt_scan(fdt, &cb);
+  ncpu -= HARTID_START; // FIXME: for hifive unleashed
 }

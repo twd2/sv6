@@ -1,6 +1,7 @@
 .globl  sig_restore
 sig_restore:
   j sig_restore
+# TODO: what's this???
 /*
         add     $0xe, %rsp    // padding
         popw    %ax
