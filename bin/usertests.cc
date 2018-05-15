@@ -1119,7 +1119,7 @@ dirfile(void)
     die("mkdir dirfile/xx succeeded!");
   if(unlink("dirfile/xx") == 0)
     die("unlink dirfile/xx succeeded!");
-  if(link("README", "dirfile/xx") == 0)
+  if(link("ls", "dirfile/xx") == 0)
     die("link to dirfile/xx succeeded!");
   if(unlink("dirfile") != 0)
     die("unlink dirfile failed!");
@@ -1151,7 +1151,7 @@ iref(void)
       die("chdir irefd failed");
 
     mkdir("", 0777);
-    link("README", "");
+    link("ls", "");
     fd = open("", O_CREAT, 0666);
     if(fd >= 0)
       close(fd);
@@ -1652,7 +1652,7 @@ ftabletest(void)
   pthread_t th;
   pthread_create(&th, 0, &ftablethr, 0);
 
-  ftable_fd = open("README", 0);
+  ftable_fd = open("ls", 0);
   if (ftable_fd < 0)
     die("open");
 
