@@ -56,6 +56,7 @@ CXXFLAGS = -Wno-delete-non-virtual-dtor -Wno-gnu-designator -Wno-tautological-co
 CFLAGS   = -no-integrated-as
 ASFLAGS  = 
 else
+AR  = $(TOOLPREFIX)ar
 CC  = $(TOOLPREFIX)gcc
 CXX = $(TOOLPREFIX)g++
 CXXFLAGS = -Wno-delete-non-virtual-dtor
