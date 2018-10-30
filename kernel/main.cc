@@ -100,7 +100,7 @@ bootothers(void)
 void
 cmain(u64 hartid, void *fdt)
 {
-  extern puts(const char *s);
+  extern void puts(const char *s);
   extern u64 cpuhz;
 
   // Make cpus[0] work.  CPU 0's percpu data is pre-allocated directly
