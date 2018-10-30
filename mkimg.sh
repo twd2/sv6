@@ -21,12 +21,12 @@ BBL=2E54B353-1271-4842-806F-E436D6AF6985
 FSBL=5B193300-FC78-40CD-8002-E86C45580B47
 
 if [ `uname` == "Darwin" ]; then
-M=m
-RAW_SIZE=`stat -f%z ${RAW}`
-type sgdisk || { echo "Try: brew install gdtfdisk"; exit 1; }
+  M=m
+  RAW_SIZE=`stat -f%z ${RAW}`
+  type sgdisk || { echo "Try: brew install gdtfdisk"; exit 1; }
 else
-M=M
-RAW_SIZE=`du -b ${RAW} | cut -d "	" -f1`
+  M=M
+  RAW_SIZE=`du -b ${RAW} | cut -d "	" -f1`
 fi
 
 echo Input file is ${RAW_SIZE} bytes.
